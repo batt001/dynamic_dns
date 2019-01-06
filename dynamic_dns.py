@@ -17,7 +17,7 @@ class dynamicDNS(threading.Thread):
 		while True:
 			self.update_hostname()
 			time.sleep(self.delay)
-			
+
 	def update_hostname(self):
 		""" If IP address changed update the hostname with current IP"""
 		if (self.ip_changed()):
@@ -35,5 +35,6 @@ class dynamicDNS(threading.Thread):
 		else:
 			return False
 
-ddns_thread = dynamicDNS()
-ddns_thread.start()
+if __name__ == '__main__':
+	ddns_thread = dynamicDNS()
+	ddns_thread.start()
