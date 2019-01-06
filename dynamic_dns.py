@@ -22,13 +22,21 @@ class dynamicDNS(threading.Thread):
 	def update_hostname(self):
 		""" If IP address changed update the hostname with current IP"""
 		if (self.ip_changed()):
+
+			""" Setup log message """
 			timestamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 			log_message = timestamp + " Ip changed, current ip: " + self.current_ip + " updating hostname: " + self.hostname + " ..."
 			print(log_message)
+
+			""" Write update event into logfile """
 			with open(self.logfile, 'a') as logfile:
 				logfile.write(log_message + "\n")
 				logfile.close()
+
+			""" Send new ip to YDNS website """
 			update_ip_response = requests.get('https://ydns.io/api/v1/update/?host=' + self.hostname + '&ip=' + self.current_ip, auth=(self.username, self.password))
+
+			""" Set previous_ip to current_ip for next iteration check """
 			self.previous_ip = self.current_ip
 
 	""" Check if IP has changed """
