@@ -15,9 +15,10 @@ class dynamicDNS(threading.Thread):
 		self.delay=1800
 		self.previous_ip='not defined'
 		self.current_ip='not defined'
-		self.logfile='dynamic_dns.log'
+		self.logfile='not defined'
 
 	def run(self):
+		self.logfile = "dynamic_dns_" + datetime.datetime.now().strftime('%Y-%m-%d_%H:%M:%S') + ".log"
 		while True:
 			if self.check_network_connection():
 				self.update_hostname()
