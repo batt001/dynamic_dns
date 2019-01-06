@@ -13,6 +13,7 @@ class dynamicDNS(threading.Thread):
 		self.delay=1800
 		self.previous_ip='not defined'
 		self.current_ip='not defined'
+		self.logfile='dynamic_dns.log'
 	def run(self):
 		while True:
 			self.update_hostname()
@@ -22,7 +23,11 @@ class dynamicDNS(threading.Thread):
 		""" If IP address changed update the hostname with current IP"""
 		if (self.ip_changed()):
 			timestamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-			print(timestamp + " Ip changed, current ip: " + self.current_ip + " updating hostname: " + self.hostname + " ...")
+			log_message = timestamp + " Ip changed, current ip: " + self.current_ip + " updating hostname: " + self.hostname + " ..."
+			print(log_message)
+			with open(self.logfile, 'a') as logfile:
+				logfile.write(log_message + "\n")
+				logfile.close()
 			update_ip_response = requests.get('https://ydns.io/api/v1/update/?host=' + self.hostname + '&ip=' + self.current_ip, auth=(self.username, self.password))
 			self.previous_ip = self.current_ip
 
