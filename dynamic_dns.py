@@ -54,7 +54,7 @@ class dynamicDNS(threading.Thread):
 			pass
 		return False
 
-	""" Writes the message passed as a parameter to the console and the defined logfile """"
+	""" Writes the message passed as a parameter to the console and the defined logfile """
 	def log(self, message):
 		""" Setup log message """
 		timestamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S') + " "
