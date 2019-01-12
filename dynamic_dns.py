@@ -22,8 +22,6 @@ class dynamicDNS(threading.Thread):
 		while True:
 			if self.check_network_connection():
 				self.update_hostname()
-			else:
-				self.log("Network connection is unavaliable!")
 			time.sleep(self.delay)
 
 	def update_hostname(self):
@@ -48,11 +46,12 @@ class dynamicDNS(threading.Thread):
 
 	""" Check if internet is avaliable """
 	def check_network_connection(self):
+		url_to_check = "ydns.io"
 		try:
-			socket.create_connection(("www.google.com", 80))
+			socket.create_connection((url_to_check, 80))
 			return True
 		except OSError:
-			pass
+			self.log("Network or " + url_to_check + " webpage is unavaliable")
 		return False
 
 	""" Writes the message passed as a parameter to the console and the defined logfile """
