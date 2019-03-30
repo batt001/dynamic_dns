@@ -1,4 +1,14 @@
 #!/bin/bash
+
+# Check wether the required python 3 package is installed
+python3 --version > /dev/null 2>&1
+return_code=$?
+if [[ $return_code -ne 0 ]]
+then
+        echo 'Python 3 not installed, exiting...'
+        exit 1
+fi
+
 if [[ "$1" = "start" ]]; then
   pid=$(ps aux | grep 'python3 dynamic.dns.py' | grep -v 'grep' | awk '{print $2}')
   if [[ "$pid" != "" ]]; then
