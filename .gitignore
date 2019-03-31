@@ -1,2 +1,5 @@
 # ignore all log files
 *.log
+
+# ignore idea config folder
+.idea/
