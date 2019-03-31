@@ -1,12 +1,14 @@
-try:
-    import requests
-except ImportError:
-    print("Requests python module is not installed, please install it (pip)")
 import json
 import threading
 import time
 import datetime
 import socket
+import sys
+try:
+    import requests
+except ImportError:
+    print("Requests python module is not installed, please install it (pip)")
+    sys.exit(1)
 
 
 class dynamicDNS(threading.Thread):
