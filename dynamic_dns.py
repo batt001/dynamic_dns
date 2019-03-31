@@ -1,4 +1,7 @@
-import requests
+try:
+    import requests
+except ImportError:
+    print("Requests python module is not installed, please install it (pip)")
 import json
 import threading
 import time
